@@ -13,7 +13,7 @@ alias cask_uninstall="brew cask uninstall"
 alias cask_search="brew cask search"
 alias cask_list="brew cask list"
 # Vagrant Aliases
-alias start-vm="VBoxManage startvm BC-docker-2016-04-10 --type headless"
+# alias start-vm="VBoxManage startvm BC-docker-2016-04-10 --type headless"
 alias stop-vm="VBoxManage controlvm BC-docker-2016-04-10 poweroff"
 alias enter-vm="ssh vagrant@localhost -p 2222"
 # Better ls alias for Mac
@@ -36,3 +36,17 @@ function vimdatshit () {
 function work-with () {
 sequelpro $1 && ssh aws.$1-Leader
 }
+
+function start-vm () {
+    if [ $# -ne 0 ]; then
+        VBoxManage startvm BC-docker-2016-04-10
+    else
+        VBoxManage startvm BC-docker-2016-04-10 --type headless
+    fi
+}
+
+function all_clients () {
+    live-sites | jq ".[] .client_name" | tr -d '"'
+}
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
